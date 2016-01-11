@@ -1,12 +1,16 @@
 ### Starting build.
-# Target: nanosite.ml.depends, tags: { extension:ml, file:nanosite.ml, ocaml, ocamldep, quiet }
-/Users/andrew/.opam/4.02.1/bin/ocamldep.opt -modules nanosite.ml > nanosite.ml.depends # cached
+# Target: tests/run_tests.ml.depends, tags: { extension:ml, file:tests/run_tests.ml, ocaml, ocamldep, quiet }
+/Users/andrew/.opam/4.02.1/bin/ocamldep.opt -modules tests/run_tests.ml > tests/run_tests.ml.depends # cached
+# Target: tests/test_template.ml.depends, tags: { extension:ml, file:tests/test_template.ml, ocaml, ocamldep, quiet }
+/Users/andrew/.opam/4.02.1/bin/ocamldep.opt -modules tests/test_template.ml > tests/test_template.ml.depends # cached
 # Target: template.ml.depends, tags: { extension:ml, file:template.ml, ocaml, ocamldep, quiet }
-/Users/andrew/.opam/4.02.1/bin/ocamldep.opt -modules template.ml > template.ml.depends # cached
+/Users/andrew/.opam/4.02.1/bin/ocamldep.opt -modules template.ml > template.ml.depends
 # Target: template.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:template.cmo, file:template.ml, implem, ocaml, quiet }
-/Users/andrew/.opam/4.02.1/bin/ocamlc.opt -c -I /Users/andrew/.opam/4.02.1/lib/ocaml -I /Users/andrew/.opam/4.02.1/lib/ocaml/compiler-libs -o template.cmo template.ml # cached
-# Target: nanosite.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:nanosite.cmo, file:nanosite.ml, implem, ocaml, quiet }
-/Users/andrew/.opam/4.02.1/bin/ocamlc.opt -c -I /Users/andrew/.opam/4.02.1/lib/ocaml -I /Users/andrew/.opam/4.02.1/lib/ocaml/compiler-libs -o nanosite.cmo nanosite.ml # cached
-# Target: nanosite.byte, tags: { byte, dont_link_with, extension:byte, file:nanosite.byte, link, ocaml, program, quiet }
-/Users/andrew/.opam/4.02.1/bin/ocamlc.opt -I /Users/andrew/.opam/4.02.1/lib/ocaml -I /Users/andrew/.opam/4.02.1/lib/ocaml/compiler-libs ocamlcommon.cma ocamlbytecomp.cma ocamltoplevel.cma str.cma template.cmo nanosite.cmo -o nanosite.byte # cached
+/Users/andrew/.opam/4.02.1/bin/ocamlc.opt -c -I /Users/andrew/.opam/4.02.1/lib/ocaml -I /Users/andrew/.opam/4.02.1/lib/ocaml/compiler-libs -o template.cmo template.ml
+# Target: tests/test_template.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:tests/test_template.cmo, file:tests/test_template.ml, implem, ocaml, quiet }
+/Users/andrew/.opam/4.02.1/bin/ocamlc.opt -c -I /Users/andrew/.opam/4.02.1/lib/ocaml -I /Users/andrew/.opam/4.02.1/lib/ocaml/compiler-libs -I tests -o tests/test_template.cmo tests/test_template.ml # cached
+# Target: tests/run_tests.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:tests/run_tests.cmo, file:tests/run_tests.ml, implem, ocaml, quiet }
+/Users/andrew/.opam/4.02.1/bin/ocamlc.opt -c -I /Users/andrew/.opam/4.02.1/lib/ocaml -I /Users/andrew/.opam/4.02.1/lib/ocaml/compiler-libs -I tests -o tests/run_tests.cmo tests/run_tests.ml # cached
+# Target: tests/run_tests.byte, tags: { byte, dont_link_with, extension:byte, file:tests/run_tests.byte, link, ocaml, program, quiet }
+/Users/andrew/.opam/4.02.1/bin/ocamlc.opt -I /Users/andrew/.opam/4.02.1/lib/ocaml -I /Users/andrew/.opam/4.02.1/lib/ocaml/compiler-libs ocamlcommon.cma ocamlbytecomp.cma ocamltoplevel.cma str.cma template.cmo tests/test_template.cmo tests/run_tests.cmo -o tests/run_tests.byte
 # Compilation successful.
