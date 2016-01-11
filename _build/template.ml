@@ -45,13 +45,29 @@ let of_string s =
   proc stream (Text "");
   !tmpl
 
-type context_entry = String of string | Int of int
-    | Float of float | Bool of bool
-let get_context_rep = function
+type context_entry = String of string | Int of int | Float of float
+		     | Bool of bool | List of context_entry list
+		     | Dict of (context_entry * context_entry) list
+			 
+let rec get_context_rep = function
   | String n -> "\"" ^ n ^ "\""
   | Int n -> string_of_int n
   | Float n -> string_of_float n
   | Bool n -> string_of_bool n
+  | List n ->
+     if List.length n = 0 then "[]" else
+     ("[" ^ ((List.fold_left
+	       (fun acc elt -> acc ^ ";" ^ (get_context_rep elt)))
+	       (get_context_rep (List.hd n))
+	       (List.tl n)) ^ "]")
+  | Dict n ->
+     let tupleize (k,v) = "(" ^ (get_context_rep k) ^ ","
+		  ^ (get_context_rep v) ^ ")" in
+     if List.length n = 0 then "[]" else
+     ("[" ^ ((List.fold_left
+	       (fun acc elt -> acc ^ ";" ^ (tupleize elt)))
+	       (tupleize (List.hd n))
+	       (List.tl n)) ^ "]")
      
 (* fill out a template with the given context *)
 (* [tmpl] is of type t, [context] is an assoc list of strings to Obj.t's *)
@@ -79,6 +95,4 @@ let fill tmpl context =
   let s = List.fold_left (fun a e -> a ^ "\n" ^ e)
     "let __s = ref \"\" in" (context_binds @ strings) in
   let code = s ^ "!__s" in
-  
-  print_endline code;
   eval code
