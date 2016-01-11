@@ -1,0 +1,4 @@
+Template syntax:
+
+Surround OCaml code with {{ and }} braces.
+Use triple braces {{{ and }}} to not escape HTML brackets.

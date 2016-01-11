@@ -8,9 +8,15 @@
 # Target: template.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:template.cmo, file:template.ml, implem, ocaml, quiet }
 /Users/andrew/.opam/4.02.1/bin/ocamlc.opt -c -I /Users/andrew/.opam/4.02.1/lib/ocaml -I /Users/andrew/.opam/4.02.1/lib/ocaml/compiler-libs -o template.cmo template.ml
 # Target: tests/test_template.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:tests/test_template.cmo, file:tests/test_template.ml, implem, ocaml, quiet }
-/Users/andrew/.opam/4.02.1/bin/ocamlc.opt -c -I /Users/andrew/.opam/4.02.1/lib/ocaml -I /Users/andrew/.opam/4.02.1/lib/ocaml/compiler-libs -I tests -o tests/test_template.cmo tests/test_template.ml # cached
+/Users/andrew/.opam/4.02.1/bin/ocamlc.opt -c -I /Users/andrew/.opam/4.02.1/lib/ocaml -I /Users/andrew/.opam/4.02.1/lib/ocaml/compiler-libs -I tests -o tests/test_template.cmo tests/test_template.ml
 # Target: tests/run_tests.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:tests/run_tests.cmo, file:tests/run_tests.ml, implem, ocaml, quiet }
-/Users/andrew/.opam/4.02.1/bin/ocamlc.opt -c -I /Users/andrew/.opam/4.02.1/lib/ocaml -I /Users/andrew/.opam/4.02.1/lib/ocaml/compiler-libs -I tests -o tests/run_tests.cmo tests/run_tests.ml # cached
-# Target: tests/run_tests.byte, tags: { byte, dont_link_with, extension:byte, file:tests/run_tests.byte, link, ocaml, program, quiet }
-/Users/andrew/.opam/4.02.1/bin/ocamlc.opt -I /Users/andrew/.opam/4.02.1/lib/ocaml -I /Users/andrew/.opam/4.02.1/lib/ocaml/compiler-libs ocamlcommon.cma ocamlbytecomp.cma ocamltoplevel.cma str.cma template.cmo tests/test_template.cmo tests/run_tests.cmo -o tests/run_tests.byte
+/Users/andrew/.opam/4.02.1/bin/ocamlc.opt -c -I /Users/andrew/.opam/4.02.1/lib/ocaml -I /Users/andrew/.opam/4.02.1/lib/ocaml/compiler-libs -I tests -o tests/run_tests.cmo tests/run_tests.ml
+# Target: tests/run_tests.d.cmo, tags: { byte, compile, debug, extension:cmo, extension:ml, file:tests/run_tests.d.cmo, file:tests/run_tests.ml, implem, ocaml, quiet }
+/Users/andrew/.opam/4.02.1/bin/ocamlc.opt -c -I /Users/andrew/.opam/4.02.1/lib/ocaml -I /Users/andrew/.opam/4.02.1/lib/ocaml/compiler-libs -g -I tests -o tests/run_tests.d.cmo tests/run_tests.ml
+# Target: tests/test_template.d.cmo, tags: { byte, compile, debug, extension:cmo, extension:ml, file:tests/test_template.d.cmo, file:tests/test_template.ml, implem, ocaml, quiet }
+/Users/andrew/.opam/4.02.1/bin/ocamlc.opt -c -I /Users/andrew/.opam/4.02.1/lib/ocaml -I /Users/andrew/.opam/4.02.1/lib/ocaml/compiler-libs -g -I tests -o tests/test_template.d.cmo tests/test_template.ml
+# Target: template.d.cmo, tags: { byte, compile, debug, extension:cmo, extension:ml, file:template.d.cmo, file:template.ml, implem, ocaml, quiet }
+/Users/andrew/.opam/4.02.1/bin/ocamlc.opt -c -I /Users/andrew/.opam/4.02.1/lib/ocaml -I /Users/andrew/.opam/4.02.1/lib/ocaml/compiler-libs -g -o template.d.cmo template.ml
+# Target: tests/run_tests.d.byte, tags: { byte, debug, dont_link_with, extension:byte, file:tests/run_tests.d.byte, link, ocaml, program, quiet }
+/Users/andrew/.opam/4.02.1/bin/ocamlc.opt -I /Users/andrew/.opam/4.02.1/lib/ocaml -I /Users/andrew/.opam/4.02.1/lib/ocaml/compiler-libs ocamlcommon.cma ocamlbytecomp.cma ocamltoplevel.cma str.cma -g template.d.cmo tests/test_template.d.cmo tests/run_tests.d.cmo -o tests/run_tests.d.byte
 # Compilation successful.
