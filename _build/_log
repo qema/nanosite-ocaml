@@ -1,0 +1,12 @@
+### Starting build.
+# Target: nanosite.ml.depends, tags: { extension:ml, file:nanosite.ml, ocaml, ocamldep, quiet }
+/Users/andrew/.opam/4.02.1/bin/ocamldep.opt -modules nanosite.ml > nanosite.ml.depends # cached
+# Target: template.ml.depends, tags: { extension:ml, file:template.ml, ocaml, ocamldep, quiet }
+/Users/andrew/.opam/4.02.1/bin/ocamldep.opt -modules template.ml > template.ml.depends # cached
+# Target: template.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:template.cmo, file:template.ml, implem, ocaml, quiet }
+/Users/andrew/.opam/4.02.1/bin/ocamlc.opt -c -I /Users/andrew/.opam/4.02.1/lib/ocaml -I /Users/andrew/.opam/4.02.1/lib/ocaml/compiler-libs -o template.cmo template.ml # cached
+# Target: nanosite.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:nanosite.cmo, file:nanosite.ml, implem, ocaml, quiet }
+/Users/andrew/.opam/4.02.1/bin/ocamlc.opt -c -I /Users/andrew/.opam/4.02.1/lib/ocaml -I /Users/andrew/.opam/4.02.1/lib/ocaml/compiler-libs -o nanosite.cmo nanosite.ml # cached
+# Target: nanosite.byte, tags: { byte, dont_link_with, extension:byte, file:nanosite.byte, link, ocaml, program, quiet }
+/Users/andrew/.opam/4.02.1/bin/ocamlc.opt -I /Users/andrew/.opam/4.02.1/lib/ocaml -I /Users/andrew/.opam/4.02.1/lib/ocaml/compiler-libs ocamlcommon.cma ocamlbytecomp.cma ocamltoplevel.cma str.cma template.cmo nanosite.cmo -o nanosite.byte # cached
+# Compilation successful.
