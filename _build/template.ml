@@ -9,6 +9,12 @@ let eval code =
     Obj.obj (Toploop.getvalue "__eval_res")
   ) with s -> raise s
 
+(* replace single backlash with double backlash; escape quotes, newlines *)
+let sanitized s =
+  s |> Str.global_replace (Str.regexp "\\\\") "\\\\"
+  |> Str.global_replace (Str.regexp "\"") "\\\""
+  |> Str.global_replace (Str.regexp "\n") "\\n"
+      
 type template_line = Text of string
 		     | Code of string
 		     | Expr of string
@@ -53,36 +59,35 @@ type context_entry = String of string | Int of int | Float of float
 		     | Bool of bool | List of context_entry list
 		     | Dict of (context_entry * context_entry) list
 			 
-let rec get_context_rep = function
-  | String n -> "\"" ^ n ^ "\""
+let rec context_rep = function
+  | String n -> "\"" ^ (sanitized n) ^ "\""
   | Int n -> string_of_int n
   | Float n -> string_of_float n
   | Bool n -> string_of_bool n
   | List n ->
      if List.length n = 0 then "[]" else
      ("[" ^ ((List.fold_left
-	       (fun acc elt -> acc ^ ";" ^ (get_context_rep elt)))
-	       (get_context_rep (List.hd n))
+	       (fun acc elt -> acc ^ ";" ^ (context_rep elt)))
+	       (context_rep (List.hd n))
 	       (List.tl n)) ^ "]")
   | Dict n ->
-     let tupleize (k,v) = "(" ^ (get_context_rep k) ^ ","
-		  ^ (get_context_rep v) ^ ")" in
+     let tupleize (k,v) = "(" ^ (context_rep k) ^ ","
+		  ^ (context_rep v) ^ ")" in
      if List.length n = 0 then "[]" else
      ("[" ^ ((List.fold_left
 	       (fun acc elt -> acc ^ ";" ^ (tupleize elt)))
 	       (tupleize (List.hd n))
 	       (List.tl n)) ^ "]")
-     
+
+(* make context_entry dict out of association list of strings *)
+let make_dict lst =
+  Dict (List.map (fun (k,v) -> (String k, String v)) lst)
+		   
 (* fill out a template with the given context *)
 (* [tmpl] is of type t and is the template to fill out. *)
 (* [context] is an assoc list of strings to context_entries *)
 (*   which maps variable names to the objects bound to them *)
 let fill tmpl context =
-  (* replace single backlash with double backlash; escape quotes, newlines *)
-  let sanitized s =
-      s |> Str.global_replace (Str.regexp "\\\\") "\\\\"
-        |> Str.global_replace (Str.regexp "\"") "\\\""
-        |> Str.global_replace (Str.regexp "\n") "\\n" in
   let add_emitter literal s =
     "__s := !__s ^ " ^
       (if literal then "\"" else "(") ^
@@ -97,12 +102,13 @@ let fill tmpl context =
 
   let context_binds = List.map
     (fun (name, value) ->
-      "let "^name^" = "^(get_context_rep value)^" in\n")
+      "let "^name^" = "^(context_rep value)^" in\n")
     context in
   let s = List.fold_left (fun a e -> a ^ e)
     "let __s = ref \"\" in\n" (context_binds @ strings) in
   let code = s ^ "!__s" in
+  
   print_endline code;
-  print_endline (eval code);
+    print_endline (eval code);
   eval code
      

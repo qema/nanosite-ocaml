@@ -8,8 +8,8 @@ let run () =
   assert (tmpl =
       [Code "\"{{}}\"^(String.make 3 'a');"; Text "te\nxt"; Expr "\"expr{%%}\""]);
   assert (fill tmpl context = "te\nxtexpr{%%}");
-  assert (get_context_rep (List [String "hi"; String "bye"])
+  assert (context_rep (List [String "hi"; String "bye"])
 	  = "[\"hi\";\"bye\"]");
-  assert (get_context_rep (Dict [(String "hi", Float 3.14);
+  assert (context_rep (Dict [(String "hi", Float 3.14);
 					(Int 3, Bool true)])
 		 = "[(\"hi\",3.14);(3,true)]")
