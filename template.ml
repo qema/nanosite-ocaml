@@ -37,9 +37,9 @@ let of_string s =
     else (
       let next_type = ref cur_type in
       (match (Stream.next stream, cur_type) with
-      | (Str.Delim "{{", Text _) -> next_type := Code ""
-      | (Str.Delim "{%", Text _) -> next_type := Expr ""
-      | (Str.Delim "}}", Code _) | (Str.Delim "%}", Expr _) ->
+      | (Str.Delim "{%", Text _) -> next_type := Code ""
+      | (Str.Delim "{{", Text _) -> next_type := Expr ""
+      | (Str.Delim "}}", Expr _) | (Str.Delim "%}", Code _) ->
 	 next_type := Text ""
       | (Str.Text s, Text _) | (Str.Delim s, Text _) -> append tmpl (Text s)
       | (Str.Text s, Code _) | (Str.Delim s, Code _) -> append tmpl (Code s)

@@ -1,18 +1,18 @@
 Template syntax:
 
-Use {% %} to surround OCaml expressions that will produce strings
+Use {{ }} to surround OCaml expressions that will produce strings
   to append to the page.
-Use {{ }} to surround OCaml code that will be literally appended to the template
+Use {% %} to surround OCaml code that will be literally appended to the template
   before evaluation.
   
 <html>
 <head></head>
 <body>
-<p>{% if Sys.os_type = "Unix" then "Hello Unix!" else "Hello World!" %}</p>
+<p>{{ if Sys.os_type = "Unix" then "Hello Unix!" else "Hello World!" }}</p>
 <ul>
-{{ List.iter (fun s -> }}
+{% List.iter (fun s -> %}
 <li>{% s %}</li>
-{{ ) ["hello"; "from"; "list"]; }}
+{% ) ["hello"; "from"; "list"]; %}
 </ul>
 </body>
 </html>
