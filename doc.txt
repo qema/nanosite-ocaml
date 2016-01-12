@@ -46,6 +46,17 @@ Site generation:
   5. Build main archive page with archive-template, store in output/archive.html
   6. Build front page with front-template, store in output/index.html
 
+Context format:
+  "posts": [("[filename.md]", [("[meta-property]", [value]);
+     	   		       ..
+  	   		       ("html", [html of file])]);
+	    ..]
+  "pages": [("", [files in this directory level, in same format as posts]);
+            ("[subdir]", [same format, recursively]);
+	    ..]
+  "[meta-property]": "value"
+  ..
+
 Template syntax:
 
 Use {{ }} to surround OCaml expressions that will produce strings
