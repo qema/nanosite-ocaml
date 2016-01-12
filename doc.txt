@@ -11,7 +11,7 @@ Use {{ }} to surround OCaml code that will be literally appended to the template
 <p>{% if Sys.os_type = "Unix" then "Hello Unix!" else "Hello World!" %}</p>
 <ul>
 {{ List.iter (fun s -> }}
-<li><%= s %></li>
+<li>{% s %}</li>
 {{ ) ["hello"; "from"; "list"]; }}
 </ul>
 </body>

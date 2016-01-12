@@ -19,21 +19,19 @@ type t = template_line list
 let of_string s =
   let tokens = Str.full_split (Str.regexp "{%\\|%}\\|{{\\|}}") s in
   let stream = Stream.of_list tokens in
-  let tmpl = ref [] in
+  let tmpl = ref [] in (* stores the template backwards (last line first) *)
   
   let is_stream_empty stream = match Stream.peek stream with
     | Some _ -> false | None -> true in
   let append tmpl cur =
     if List.length !tmpl = 0 then tmpl := [cur]
     else
-      let tmpl_rev = List.rev !tmpl in
-      let last = List.hd tmpl_rev in
-      let rest = List.rev (List.tl tmpl_rev) in
-      match (last, cur) with
-      | (Text a, Text b) -> tmpl := rest @ [Text (a ^ b)]
-      | (Code a, Code b) -> tmpl := rest @ [Code (a ^ b)]
-      | (Expr a, Expr b) -> tmpl := rest @ [Expr (a ^ b)]
-      | (_, n) -> tmpl := !tmpl @ [n] in
+      let rest = List.tl !tmpl in
+      match (List.hd !tmpl, cur) with
+      | (Text a, Text b) -> tmpl := Text (a ^ b)::rest
+      | (Code a, Code b) -> tmpl := Code (a ^ b)::rest
+      | (Expr a, Expr b) -> tmpl := Expr (a ^ b)::rest
+      | (_, n) -> tmpl := n::!tmpl in
   let rec proc stream cur_type =
     if is_stream_empty stream then ()
     else (
@@ -49,7 +47,7 @@ let of_string s =
       proc stream !next_type
     ) in
   proc stream (Text "");
-  !tmpl
+  List.rev !tmpl
 
 type context_entry = String of string | Int of int | Float of float
 		     | Bool of bool | List of context_entry list
