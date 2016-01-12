@@ -102,7 +102,8 @@ let fill tmpl context =
   let s = List.fold_left (fun a e -> a ^ e)
     "let __s = ref \"\" in\n" (context_binds @ strings) in
   let code = s ^ "!__s" in
+  (*
   print_endline code;
-  print_endline (eval code);
+    print_endline (eval code);*)
   eval code
      
